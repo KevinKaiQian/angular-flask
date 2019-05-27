@@ -1,0 +1,52 @@
+
+
+<div class="btn-group" role="group" aria-label="...">
+  <button type="button" class="btn btn-default"  ng-click="showall()" >全部股票</button>
+  <button type="button" class="btn btn-default"  ng-click="showself()"  >自选股票</button>
+</div>
+
+<div class="panel panel-default" ng-show="all">
+
+  <div class="panel-heading"></div>
+  <table class="table">
+        <tr ng-repeat="x in tags" ng-hide="x.selfchoose">
+            <td>{{ x.id }}</td>
+            <td> <a href="{{ x.link}}"  target="_blank">{{ x.name }}</a> </td>
+            <td>{{ x.stockid }}</td>
+            <td>
+                <div class="btn-group">
+                  <button class="btn btn-default btn-sm " type="button"  aria-haspopup="true" aria-expanded="false" ng-click="tagOperations.updatestock($index,true)">
+                    添加入自选
+                  </button>
+
+                </div>
+
+            </td>
+
+        </tr>
+  </table>
+</div>
+
+
+<div class="panel panel-default" ng-show="self">
+
+  <div class="panel-heading"></div>
+  <table class="table">
+        <tr ng-repeat="x in tags" ng-show="x.selfchoose">
+            <td>{{ x.id }}</td>
+            <td> <a href="{{ x.link}}"  target="_blank">{{ x.name }}</a> </td>
+            <td>{{ x.stockid }}</td>
+            <td>
+                <div class="btn-group">
+                  <button class="btn btn-default btn-sm " type="button"  aria-haspopup="true" aria-expanded="false" ng-click="tagOperations.updatestock($index,false)">
+                    删除自选
+                  </button>
+
+                </div>
+
+            </td>
+
+
+        </tr>
+  </table>
+</div>

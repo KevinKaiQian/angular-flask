@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
+  <title>股票</title>
+  <link rel="stylesheet" href="vendor/bootstrap/dist/css/bootstrap.css">
+
+  <link rel="stylesheet" href="app.css">
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">股票</a>
+      </div>
+    </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-3 col-md-2 sidebar">
+        <ul class="nav nav-sidebar">
+
+          <li>
+            <a auto="active" href="#/liststock">股票列表</a>
+          </li>
+          <li>
+            <a auto="active" href="#/detailstock">基本情况</a>
+          </li>
+ 
+        </ul>
+ 
+      </div>
+      <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main" ng-view></div>
+    </div>
+  </div>
+  <script src="vendor/angular/angular.js"></script>
+  <script src="vendor/angular/angular-resource.min.js"></script>
+  <script src="vendor/angular/xeditable.min.js"></script>
+  <script src="vendor/angular-route/angular-route.js"></script>
+  <script src="vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="app.js"></script>
+
+	
+	<script src="stocklist/stocklist-module.js"></script>
+	<script src="stocklist/stocklist-info-controller.js"></script>
+	<script src="stocklist/stocklist-data-service.js"></script>
+	<script src="stocklist/stocklist-list-loader-service.js"></script>
+	
+	
+	
+	
+	<script src="stockdetail/stockdetail-module.js"></script>
+	<script src="stockdetail/stockdetail-data-service.js"></script>
+	<script src="stockdetail/stockdetail-info-controller.js"></script>
+	<script src="stockdetail/stockdetail-list-loader-service.js"></script>
+
+	
+    <!-- common scripts -->
+    <script src="common/common-module.js"></script>
+    <script src="common/services/confirm-modal-service.js"></script>
+    <script src="common/services/alert-service.js"></script>
+    <script src="common/directives/auto-focus-directive.js"></script>
+    <script src="common/directives/markdown-convert-directive.js"></script>
+    <script src="common/directives/editor-fullscreen-directive.js"></script>
+    <script src="common/directives/preview-fullscreen-directive.js"></script>
+	
+   <script src="components/nav.js"></script>
+  
+  <script src="vendor/echarts/echarts.js"></script>
+  
+  <!--div id="chart" style="width:1200px;height:400px;"></div-->
+</body>
+
+
+</html>

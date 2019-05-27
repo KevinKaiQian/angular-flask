@@ -1,0 +1,20 @@
+<div class="panel panel-default" >
+
+  <div class="panel-heading"></div>
+  <table class="table">
+        <tr ng-repeat="x in tags" ng-show="x.selfchoose">
+            <td>{{ x.id }}</td>
+            <td> <a href="{{ x.link}}"  target="_blank">{{ x.name }}</a> </td>
+            <td>{{ x.stockid }}</td>
+            <td>
+                <div class="btn-group">
+                  <button class="btn btn-default btn-sm " type="button"  aria-haspopup="true" aria-expanded="false" ng-click="tagOperations.updatestock($index,false)">
+					显示细节
+                  </button>
+                </div>
+            </td>
+        </tr>
+  </table>
+</div>
+
+<div id="chart" style="width:1100px;height:400px;"></div>
