@@ -93,7 +93,7 @@ class StockName(Resource):
                     setattr(stock, arg_name, arg_value)
             db.session.commit()
 
-        return {"NameList": marshal(stock, STOCK_FIELDS)}
+        return {"StockList": marshal(stock, STOCK_FIELDS)}
 
 class StockNames(Resource):
     '''
@@ -118,11 +118,11 @@ class StockNames(Resource):
     def get(self):
 
         StockDatas = models.StockName.query.all()
-        return  {"NameList": [marshal(StockData, STOCK_FIELDS) for StockData in StockDatas] }
+        return  {"StockList": [marshal(StockData, STOCK_FIELDS) for StockData in StockDatas] }
     
     def put(self, stock_id):
         StockDatas = models.StockName.query.all()
-        return {"NameList": [marshal(StockData, STOCK_FIELDS) for StockData in StockDatas] }
+        return {"StockList": [marshal(StockData, STOCK_FIELDS) for StockData in StockDatas] }
 
 
 class StockDetail(Resource):
@@ -155,21 +155,7 @@ class StockDetail(Resource):
             datas= stod.query_kdj_data()
             if datas == None : abort(404)
 
-            #tmps =[]
-            #for data in datas:
-            #    obj=models.StockDaily()
-            #    setattr(obj, "trade_date", data.trade_date)
-            #    setattr(obj,"open",data.open)
-            #    setattr(obj,"close",data.close)
-            #    setattr(obj,"low",data.low)
-            #    setattr(obj,"high",data.high)
-            #       tmps.append(obj)
-            import time
-            time.sleep(50)
             return  {"StockDaily":datas[::-1]}
-            #print {"StockDaily": [marshal(tmp, STOCK_DETAIL_FIELDS) for tmp  in tmps]}
-            #return {"StockDaily": [marshal(tmp, STOCK_DETAIL_FIELDS) for tmp  in tmps]}
-
 
 
     def put(self, stock_id):
@@ -192,9 +178,8 @@ class StockDetail(Resource):
                 if arg_value is not None:
                     setattr(stock, arg_name, arg_value)
             db.session.commit()
-        #print type(stock)
-        #print type(marshal(stock, STOCK_FIELDS))
-        return {"NameList": marshal(stock, STOCK_FIELDS)}
+
+        return {"StockDaily": marshal(stock, STOCK_FIELDS)}
 
 class StockDetails(Resource):
     '''
@@ -228,7 +213,7 @@ class StockDetails(Resource):
         #print type(StockDatas[0])
         #print type([marshal(StockData, STOCK_FIELDS) for StockData in StockDatas])
         #print StockDatas
-        return  {"NameList": [marshal(StockData, STOCK_FIELDS) for StockData in StockDatas] }
+        return  {"StockDailys": [marshal(StockData, STOCK_FIELDS) for StockData in StockDatas] }
     
 
 api.add_resource(StockNames,

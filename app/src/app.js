@@ -32,7 +32,7 @@ app.config(['$routeProvider', function($routeProvider) {
     .when('/liststock', {
       controller: 'TagInfoController',
 		resolve: {
-			tags: function(tagListLoader){
+			StockList: function(tagListLoader){
 				return tagListLoader();
 			}
 		},
@@ -41,7 +41,7 @@ app.config(['$routeProvider', function($routeProvider) {
     .when('/detailstock', {
       controller: 'detailController',
 		resolve: {
-			tags: function(detailLoader){
+			StockDetails: function(detailLoader){
 				return detailLoader();
 			}
 		},

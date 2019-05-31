@@ -1,9 +1,9 @@
 angular
 	.module("app.stocklist")
-	.factory("tagDataService", tagDataService);
+	.factory("StockListDataService", StockListDataService);
 
-tagDataService.$inject = ["$resource"];
+StockListDataService.$inject = ["$resource"];
 
-function tagDataService($resource){
+function StockListDataService($resource){
     return $resource("/stock/api/v1.0/StockNames/:id", {id: "@id"}, { update: { method: "PUT" }});
 }   

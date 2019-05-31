@@ -17,7 +17,7 @@ def http_post_data(header=None,url="http://api.waditu.com"):
                 }
     else:
         header = header
-    print header
+    #print header
     req = urllib2.Request(url, header)
     response = urllib2.urlopen(req)
     return json.loads(response.read())['data']

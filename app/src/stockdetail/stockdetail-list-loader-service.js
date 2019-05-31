@@ -8,8 +8,8 @@ function detailLoader(DetailDataService, $q){
     return function(){
         var delay = $q.defer();
         
-        DetailDataService.get(function(tags){
-            delay.resolve(tags);
+        DetailDataService.get(function(StockDetails){
+            delay.resolve(StockDetails);
         }, function(){
             delay.reject("Unable to fetch tags");
         });

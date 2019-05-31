@@ -124,4 +124,4 @@ class StockDaily():
 
     def __del__(self):
         self.session.close()
-        print "close"
+        #print "close"

@@ -2,60 +2,24 @@ angular
 	.module("app.kstockdetail")
 	.controller("detailController", detailController);
 
-detailController.$inject = ["$scope", "confirmModalService", "DetailDataService", "alertService", "tags"];
+detailController.$inject = ["$scope", "confirmModalService", "DetailDataService", "alertService", "StockDetails"];
 
-function detailController($scope, confirmModalService, DetailDataService, alertService, tags){
-    $scope.tags = tags["NameList"];
+function detailController($scope, confirmModalService, DetailDataService, alertService, StockDetails){
+    $scope.StockDetails = StockDetails["StockDailys"];
     $scope.myChart = echarts.init(document.getElementById('chart'));
 
-    $scope.all= true;
-    $scope.self= false;
-    //console.log($scope.tags);
-    $scope.loading = true;
-    $scope.showall = function () {
-        $scope.all= true;
-        $scope.self= false;
-     };
-    $scope.showself = function () {
-        $scope.all= false;
-        $scope.self= true;
-     };
-    $scope.tagOperations = {
-        "createTag": function(){
-            $scope.inserted = {
-                "id": -1,
-                "name": "Not set"
-            };
-            $scope.tags.push($scope.inserted);
-        },
+    $scope.Operations = {
+
         "updatestock": function(index){
-            var tag = $scope.tags[index];
+				var info = $scope.StockDetails[index];
         
-            if(tag.id === -1){
-                // create a new tag
-                delete tag["id"];
-                DetailDataService.save(tag).$promise.then(
+            	DetailDataService.get({ id: info.id }, info).$promise.then(
                     function(response){
-                        //console.log(response);
-                        $scope.tags[index] = response["tag"];
-                        alertService.addAlert("success", "Success: stock created!", 3000);
-                    },
-                    function(){
-                    	alertService.addAlert("danger", "Error: fail to create stock!", 3000);
-                    }
-                );
-            }
-            else{
 
-
-            	DetailDataService.get({ id: tag.id }, tag).$promise.then(
-                    function(response){
-                        //console.log(response["StockDaily"])
                         $scope.data=response["StockDaily"]
                     	alertService.addAlert("success", "Success: stock updated!", 3000);
-                    	 //console.log($scope.data);
-                         var data0 = splitData($scope.data);
 
+                         var data0 = splitData($scope.data);
 
                         function splitData(rawData) {
                             var categoryData = [];
@@ -261,14 +225,14 @@ function detailController($scope, confirmModalService, DetailDataService, alertS
                         $scope.myChart.setOption(option);
                    },
                     function(){
-                        alertService.addAlert("danger", "Error: stock to update tag!", 3000);
+                        alertService.addAlert("danger", "Error: stock to update stock infor!", 3000);
                   }
                 );
 
 
 
                 
-            }
+            
 
 
 

@@ -9,13 +9,13 @@
 
   <div class="panel-heading"></div>
   <table class="table">
-        <tr ng-repeat="x in tags" ng-hide="x.selfchoose">
+        <tr ng-repeat="x in StockLists" ng-hide="x.selfchoose">
             <td>{{ x.id }}</td>
             <td> <a href="{{ x.link}}"  target="_blank">{{ x.name }}</a> </td>
             <td>{{ x.stockid }}</td>
             <td>
                 <div class="btn-group">
-                  <button class="btn btn-default btn-sm " type="button"  aria-haspopup="true" aria-expanded="false" ng-click="tagOperations.updatestock($index,true)">
+                  <button class="btn btn-default btn-sm " type="button"  aria-haspopup="true" aria-expanded="false" ng-click="Operations.updatestock($index,true)">
                     添加入自选
                   </button>
 
@@ -32,13 +32,13 @@
 
   <div class="panel-heading"></div>
   <table class="table">
-        <tr ng-repeat="x in tags" ng-show="x.selfchoose">
+        <tr ng-repeat="x in StockLists" ng-show="x.selfchoose">
             <td>{{ x.id }}</td>
             <td> <a href="{{ x.link}}"  target="_blank">{{ x.name }}</a> </td>
             <td>{{ x.stockid }}</td>
             <td>
                 <div class="btn-group">
-                  <button class="btn btn-default btn-sm " type="button"  aria-haspopup="true" aria-expanded="false" ng-click="tagOperations.updatestock($index,false)">
+                  <button class="btn btn-default btn-sm " type="button"  aria-haspopup="true" aria-expanded="false" ng-click="Operations.updatestock($index,false)">
                     删除自选
                   </button>
 
