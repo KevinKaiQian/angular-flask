@@ -8,7 +8,7 @@ function TagInfoController($scope, confirmModalService, tagDataService, alertSer
     $scope.tags = tags["NameList"];
     $scope.all= true;
     $scope.self= false;
-    console.log($scope.tags);
+    //console.log($scope.tags);
     $scope.loading = true;
     $scope.showall = function () {
         $scope.all= true;
@@ -34,7 +34,7 @@ function TagInfoController($scope, confirmModalService, tagDataService, alertSer
                 delete tag["id"];
                 tagDataService.save(tag).$promise.then(
                     function(response){
-                        console.log(response);
+                        //console.log(response);
                         $scope.tags[index] = response["tag"];
                         alertService.addAlert("success", "Success: stock created!", 3000);
                     },

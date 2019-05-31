@@ -164,9 +164,11 @@ class StockDetail(Resource):
             #    setattr(obj,"low",data.low)
             #    setattr(obj,"high",data.high)
             #       tmps.append(obj)
-            return  {"StockDaily":datas}
-            print {"StockDaily": [marshal(tmp, STOCK_DETAIL_FIELDS) for tmp  in tmps]}
-            return {"StockDaily": [marshal(tmp, STOCK_DETAIL_FIELDS) for tmp  in tmps]}
+            import time
+            time.sleep(50)
+            return  {"StockDaily":datas[::-1]}
+            #print {"StockDaily": [marshal(tmp, STOCK_DETAIL_FIELDS) for tmp  in tmps]}
+            #return {"StockDaily": [marshal(tmp, STOCK_DETAIL_FIELDS) for tmp  in tmps]}
 
 
 
@@ -190,8 +192,8 @@ class StockDetail(Resource):
                 if arg_value is not None:
                     setattr(stock, arg_name, arg_value)
             db.session.commit()
-        print type(stock)
-        print type(marshal(stock, STOCK_FIELDS))
+        #print type(stock)
+        #print type(marshal(stock, STOCK_FIELDS))
         return {"NameList": marshal(stock, STOCK_FIELDS)}
 
 class StockDetails(Resource):
@@ -223,8 +225,8 @@ class StockDetails(Resource):
     def get(self):
 
         StockDatas = models.StockName.query.filter_by(selfchoose=True).all()
-        print type(StockDatas[0])
-        print type([marshal(StockData, STOCK_FIELDS) for StockData in StockDatas])
+        #print type(StockDatas[0])
+        #print type([marshal(StockData, STOCK_FIELDS) for StockData in StockDatas])
         #print StockDatas
         return  {"NameList": [marshal(StockData, STOCK_FIELDS) for StockData in StockDatas] }
     
