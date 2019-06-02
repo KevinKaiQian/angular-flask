@@ -1,9 +1,4 @@
-start web :
-
-	python run.pySS
-
-
-collect stock information :
-
-	python Name.py
-
+create stock table and update stock data :
+	python prepare.py
+start website:
+	python run.py
