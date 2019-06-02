@@ -17,6 +17,7 @@ from flask_restful import Api, Resource, reqparse, fields, marshal
 from app import app, models
 from app.models import db
 
+import time
 
 api = Api(app)  # pylint: disable=C0103
 
@@ -84,8 +85,8 @@ class StockName(Resource):
         if args.has_key("stockid"):
             if args['stockid'][0]=="0" or args['stockid'][0]=="3":ts_code=args['stockid']+".SZ"
             else:ts_code=args['stockid']+".SH"
-            res = daily_data().collect_data(end_date="20190524",ts_code=ts_code)
-            #print res
+            res = daily_data().collect_data(end_date=str(time.strftime("%Y%m%d", time.localtime())),ts_code=ts_code)
+            print res
             stod = model.StockDaily(args['stockid'])
             stod.collect_data(data=res)
             for arg_name, arg_value in args.items():
@@ -155,13 +156,14 @@ class StockDetail(Resource):
             datas= stod.query_kdj_data()
             if datas == None : abort(404)
 
-            return  {"StockDaily":datas[::-1]}
 
+            #print sorted(datas, key=lambda d: int(d[0]), reverse=False)
 
+            return  {"StockDaily":sorted(datas, key=lambda d: int(d[0]), reverse=False)}
+
+'''
     def put(self, stock_id):
-        '''
-        method to update task by task id
-        '''
+ 
         stock = models.StockName.query.filter_by(id=stock_id).first()
         args = self.reqparse.parse_args()
 
@@ -170,7 +172,7 @@ class StockDetail(Resource):
         if args.has_key("stockid"):
             if args['stockid'][0]=="0" or args['stockid'][0]=="3":ts_code=args['stockid']+".SZ"
             else:ts_code=args['stockid']+".SH"
-            res = daily_data().collect_data(end_date="20190524",ts_code=ts_code)
+            res = daily_data().collect_data(end_date=str(time.strftime("%Y%m%d", time.localtime())),ts_code=ts_code)
 
             stod = model.StockDaily(args['stockid'])
             stod.collect_data(data=res)
@@ -180,6 +182,7 @@ class StockDetail(Resource):
             db.session.commit()
 
         return {"StockDaily": marshal(stock, STOCK_FIELDS)}
+'''
 
 class StockDetails(Resource):
     '''
@@ -210,11 +213,32 @@ class StockDetails(Resource):
     def get(self):
 
         StockDatas = models.StockName.query.filter_by(selfchoose=True).all()
-        #print type(StockDatas[0])
-        #print type([marshal(StockData, STOCK_FIELDS) for StockData in StockDatas])
-        #print StockDatas
+
         return  {"StockDailys": [marshal(StockData, STOCK_FIELDS) for StockData in StockDatas] }
-    
+
+
+class Macroeconomics(Resource):
+    '''
+    this is Task list resource
+    '''
+
+    # decorators = [auth.login_required]
+
+    def __init__(self):
+        #self.reqparse = reqparse.RequestParser()
+
+        super(Macroeconomics, self).__init__()
+
+        self.representations = {
+            "application/xml": output_xml,
+            "application/json": output_json,
+        }
+
+    def get(self):
+        StockDatas = models.StockName.query.filter_by(selfchoose=True).all()
+
+        return {"Macroeconomics": []}
+
 
 api.add_resource(StockNames,
                  "/stock/api/v1.0/StockNames",
@@ -231,3 +255,6 @@ api.add_resource(StockDetail,
                  "/stock/api/v1.0/StockDetails/<int:stock_id>",
                  endpoint="ep_stockdetail")
 
+api.add_resource(Macroeconomics,
+                 "/stock/api/v1.0/EconomicData",
+                 endpoint="ep_Macroeconomics")

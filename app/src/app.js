@@ -12,16 +12,10 @@ var app = angular.module('app', [
   'ui.bootstrap',
   'app.stocklist',
   'app.kstockdetail',
+  'app.economics',
   'app.components.nav',
   'app.common'
 ]);
-
-/*服务的URL配置*/
-app.constant('AppConfig', {
-  page_size: 10,
-  movies_api: 'https://api.douban.com/v2/movie/',
-});
-
 
 
 
@@ -48,7 +42,15 @@ app.config(['$routeProvider', function($routeProvider) {
       templateUrl: 'stockdetail/view.html'
     })
 
-
+    .when('/Macroeconomics', {
+      controller: 'EconomicController',
+		resolve: {
+			EconomicData: function(EconomicsLoader){
+				return EconomicsLoader();
+			}
+		},
+      templateUrl: 'Macroeconomics/view.html'
+    })
     .otherwise({
       redirectTo: '/liststock'
     });
